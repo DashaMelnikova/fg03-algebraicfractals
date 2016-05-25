@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>Algebraic Fractals</title>
+</head>
+<body style="background-color:#2097FF">
+<form>
+<table align="center" border="0" style="background-color:#BBF0FF" cellspacing="10" cellpadding="10">
+    <tr>
+        <td>
+            <canvas height="600" width="600" id="canvas" style="background-color:#FFFFFF"></canvas>
+        </td>
+        <td>
+		<table>
+			<tr>
+				<td>метод:</td>
+				<td>
+					<select size="1" id="method">
+					<option value="0">Бассейн Ньютона</option>
+					<option value="1">Множество Мандельброта</option>
+					<option value="2">Множество Жюлиа</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>раскарска:</td>
+				<td>
+					<select size="1" id="color">
+					<option value="0">классическая</option>
+					<option value="1">уровневая</option>
+					<option value="2">зеброй</option>
+					<option value="3">гибридная</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Колличество итераций</td>
+				<td>
+					<input type="number"  id="iter" value="30"> </br>
+				</td>
+            </tr>
+			<tr>
+				<td align="right">Константа Жюлиа  x:</br>y:</td>
+				<td>
+					<input type="number" id="x" value="-0.12"></br>
+					<input type="number" id="y" value="0.74">
+				</td>
+			</tr>
+			<tr>
+				<td>zoom</td>
+				<td>
+					<select size="1" id="zoom">
+					<option value="0">приблизить</option>
+					<option value="1">удалить</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"></br></br><input type="button" onclick="draw()" value="нарисовать"></td>
+			</tr>
+		</table>	
+        </td>
+    </tr>
+</table>
+</form>
+	<script src="Draw.js"></script>
+    <script src="script.js"></script>
+    <script src="Newton.js"></script>
+    <script src="Mandelbrot.js"></script>
+    <script src="Julia.js"></script>
+</body>
+</html>
