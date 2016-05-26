@@ -10,20 +10,27 @@ function setOfVariables(){
     this.method;
     this.a;
     this.b;
-	this.getComplexCoordinats = function (x, y) {
+	this.getComplexCoordinats = function (x, y) 
+	{
         var i = x * (this.right - this.left) / (this.width - 1) + this.left;
         var j = y * (this.bottom - this.top) / (this.height - 1) + this.top;
         return {x: i, y: j};
     };
+	this.read = function ()
+	{
+        this.n = Number(document.getElementById("iter").value);
+        this.color = Number(document.getElementById("color").value);
+        this.method = Number(document.getElementById("method").value);
+        this.a = Number(document.getElementById("x").value);
+        this.b = Number(document.getElementById("y").value);
+		return this;
+	}
 }
 var param = new setOfVariables();
 
-function draw() {
-	param.n = Number(document.getElementById("iter").value);
-    param.color = Number(document.getElementById("color").value);
-    param.method = Number(document.getElementById("method").value);
-    param.a = Number(document.getElementById("x").value);
-    param.b = Number(document.getElementById("y").value);
+function draw() 
+{
+	param.read();
 	var canvas = document.getElementById("canvas");
 	canvas.width = 600;
 	canvas.height = 600;
