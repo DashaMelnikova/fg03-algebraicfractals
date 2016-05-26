@@ -25,6 +25,36 @@ function setOfVariables(){
         this.b = Number(document.getElementById("y").value);
 		return this;
 	}
+	this.whatMethod = function(x, y)
+	{
+		switch (this.method) 
+			{
+                case 0: return getNewtonIteration(x, y, 0, this.n);
+                    break;
+                case 1: return getMandelbrotIteration(x, y, this.n);
+                    break;
+                case 2: return getJuliaIteration(x, y, this.a, this.b, this.n); 
+                    break;
+            }
+	}
+	this.whatColouring = function(at, ar)
+	{
+		switch (this.color) 
+			{
+                case 0: 
+                    if (this.method == 0)
+                        return classical(at);
+                    else
+                        return classic(ar);
+                    break;
+                case 1: return level(ar);
+					break;
+                case 2: return zebra(ar); 
+					break;
+                case 3: return gibrid(at, ar);
+					break;
+            }
+	}
 }
 var param = new setOfVariables();
 
@@ -32,25 +62,16 @@ function draw()
 {
 	param.read();
 	var canvas = document.getElementById("canvas");
-	canvas.width = 600;
-	canvas.height = 600;
     var context = canvas.getContext('2d');
-    var imageData = context.createImageData(canvas.width, canvas.height);
-    for (var i = 0; i < canvas.width; ++i)
-        for (var j = 0; j < canvas.height; ++j) 
+    var imageData = context.createImageData(param.width, param.height);
+    for (var i = 0; i < param.width; ++i)
+        for (var j = 0; j < param.height; ++j) 
 		{
             var p = param.getComplexCoordinats(i, j);
             var attractor;
 			var marker;
-            switch (param.method) 
-			{
-                case 0: attractor = getNewtonIteration(p.x, p.y, 0, param.n);
-                    break;
-                case 1: attractor = getMandelbrotIteration(p.x, p.y, param.n);
-                    break;
-                case 2: attractor = getJuliaIteration(p.x, p.y, param.a, param.b, param.n); 
-                    break;
-            }
+			
+            attractor = param.whatMethod(p.x, p.y);
 			
 			if (param.method == 0)
 			{
@@ -58,30 +79,14 @@ function draw()
 				var attractor = attractor.it;
 			}
 			
-            switch (param.color) 
-			{
-                case 0: 
-                    if (param.method == 0)
-                        marker = classical(attract);
-                    else
-                        marker = classic(attractor);
-                    break;
-                case 1: marker = level(attractor);
-					break;
-                case 2: marker = zebra(attractor); 
-					break;
-                case 3: marker = gibrid(attract, attractor);
-					break;
-            }
+			marker = param.whatColouring(attract, attractor);
+            
 			imageData.data[4 * (i + canvas.width * j) + 0] = marker.r;
             imageData.data[4 * (i + canvas.width * j) + 1] = marker.g;
             imageData.data[4 * (i + canvas.width * j) + 2] = marker.b;
             imageData.data[4 * (i + canvas.width * j) + 3] = marker.op;
         }
     context.putImageData(imageData, 0, 0);
-   
-
-    
 }
   
  var cl = document.getElementById('canvas');
